@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import persons
+from routers import persons
 
 app = FastAPI(
     title="NTT Data - API de Personas",
