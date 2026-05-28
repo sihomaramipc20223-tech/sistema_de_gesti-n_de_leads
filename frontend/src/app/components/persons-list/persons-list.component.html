@@ -1,0 +1,61 @@
+<div class="container">
+
+  <div class="header">
+    <h1>👥 Lista de Personas</h1>
+    <p>Datos generados desde RandomUser API</p>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-wrapper" *ngIf="loading">
+    <div class="spinner"></div>
+    <span class="loading-text">Cargando personas...</span>
+  </div>
+
+  <!-- Error -->
+  <div class="error-wrapper" *ngIf="error && !loading">
+    <span class="error-icon">⚠️</span>
+    <span class="error-message">{{ error }}</span>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid" *ngIf="!loading && !error">
+    <div
+      class="card"
+      [class.female]="person.genero === 'female'"
+      *ngFor="let person of persons"
+    >
+      <div class="card-top">
+        <img [src]="person.fotografia" [alt]="person.nombre" loading="lazy" />
+        <div class="card-name">
+          <h2>{{ person.nombre }}</h2>
+          <span class="badge" [class.female]="person.genero === 'female'">
+            {{ person.genero === 'male' ? '♂ masculino' : '♀ femenino' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <div class="info-row">
+          <span class="icon">📍</span>
+          <span>{{ person.ubicacion }}</span>
+        </div>
+        <div class="info-row">
+          <span class="icon">✉️</span>
+          <a [href]="'mailto:' + person.correo">{{ person.correo }}</a>
+        </div>
+        <div class="info-row">
+          <span class="icon">🎂</span>
+          <span>{{ person.fecha_nacimiento }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón recargar -->
+  <div class="actions" *ngIf="!loading">
+    <button class="btn-refresh" (click)="loadPersons()">
+      🔄 Recargar personas
+    </button>
+  </div>
+
+</div>
